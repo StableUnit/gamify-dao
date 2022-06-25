@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import ReactDOM from "react-dom";
 import { ReactNotifications } from "react-notifications-component";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./components/App/App";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
@@ -17,8 +18,10 @@ const AppContainer = () => {
             <DispatchContext.Provider value={dispatch}>
                 {/* @ts-ignore */}
                 <ErrorBoundary>
-                    <ReactNotifications />
-                    <App />
+                    <BrowserRouter>
+                        <ReactNotifications />
+                        <App />
+                    </BrowserRouter>
                 </ErrorBoundary>
             </DispatchContext.Provider>
         </StateContext.Provider>

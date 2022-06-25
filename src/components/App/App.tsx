@@ -10,6 +10,7 @@ import { DispatchContext, StateContext } from "../../reducer/constants";
 import Actions from "../../reducer/actions";
 
 import "./App.scss";
+import Routes from "../Routes/Routes";
 
 const RPC = {
     [networkToId.eth]: networkInfo[NETWORK.eth].rpcUrls[0],
@@ -106,7 +107,7 @@ const App = () => {
     return (
         <div className="App">
             <Header onConnect={onConnect} onDisconnect={onDisconnect} />
-            <div style={{ textAlign: "center" }}>{chain}</div>
+            <Routes />
         </div>
     );
 };

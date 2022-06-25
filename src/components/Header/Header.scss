@@ -44,6 +44,19 @@
         height: 40px;
     }
 
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__links {
+        padding-right: 32px;
+        a {
+            padding: 10px 16px;
+        }
+    }
+
     &__navbar {
         display: flex;
         align-items: center;
@@ -64,6 +77,5 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
 }
