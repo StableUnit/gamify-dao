@@ -43,3 +43,23 @@ body > iframe {
     font-weight: 700;
     font-size: 20px;
 }
+
+label, input, textarea {
+    color: rgba(255,255,255, 0.7) !important;
+}
+
+.MuiInputBase-root {
+    background: #313131;
+}
+
+.MuiInputBase-input {
+    padding: 16.5px 14px !important;
+}
+
+fieldset {
+    border-color: rgba(255,255,255, 0.1) !important;
+}
+
+.react-datepicker-popper {
+    z-index: 2 !important;
+}

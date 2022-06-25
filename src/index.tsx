@@ -9,6 +9,7 @@ import { initialState, StateContext, DispatchContext } from "./reducer/constants
 import reducer from "./reducer";
 
 import "react-notifications-component/dist/theme.css";
+import "react-datepicker/dist/react-datepicker.min.css";
 import "./index.scss";
 
 const AppContainer = () => {

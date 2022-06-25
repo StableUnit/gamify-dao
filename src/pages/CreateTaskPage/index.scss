@@ -1,6 +1,39 @@
+@import "../../ui-kit/styles/vars";
+
 .createTask {
+  width: 460px;
+  padding: 32px 0 20px 0;
+  background: $black;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+
+  &__content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__field {
+      margin-bottom: 20px !important;
+    }
+
+    &__date-field {
+      width: 100%;
+
+      input {
+        font: inherit;
+        border-radius: 4px;
+        padding: 16.5px 14px !important;
+        box-sizing: border-box;
+        width: 100%;
+        background: $dark-gray;
+        border: 1px solid rgba(255,255,255, 0.1);
+      }
+    }
+  }
 }
