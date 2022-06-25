@@ -18,25 +18,25 @@ type LinkType = {
 };
 
 const LINKS: LinkType[] = [
+    // {
+    //     href: "/",
+    //     text: "Home",
+    // },
     {
-        href: "/",
-        text: "Home",
+        href: "/create-task",
+        text: "Create task",
     },
     {
-        href: "/add-task",
-        text: "Add task",
+        href: "/my-tasks",
+        text: "My tasks",
     },
     {
-        href: "/job",
-        text: "Job",
-    },
-    {
-        href: "/tasks-information",
-        text: "Tasks Info",
+        href: "/all-tasks",
+        text: "All tasks",
     },
     {
         href: "/verification",
-        text: "Verification",
+        text: "Task verification",
     },
 ];
 
@@ -46,12 +46,19 @@ const Header = ({ onConnect, onDisconnect }: NavbarProps) => {
 
     return (
         <div className="header">
-            <div className="header__logo">
-                <a href="https://stableunit.org/" target="_blank" rel="noreferrer">
-                    <img src="https://stableunit.org/assets/img/logo.svg" />
-                </a>
+            <div className="header__section">
+                <div className="header__logo">
+                    <a href="https://stableunit.org/" target="_blank" rel="noreferrer">
+                        <img src="https://stableunit.org/assets/img/logo.svg" />
+                    </a>
+                </div>
+                <div className="header__userInfo">
+                    <div>LVL: 1</div>
+                    <div>XP: 10/100</div>
+                </div>
             </div>
-            <div className="header__content">
+
+            <div className="header__section">
                 <div className="header__links">
                     {LINKS.map(({ href, text }) => (
                         <GradientHref href={href} disabled={location.pathname === href}>
