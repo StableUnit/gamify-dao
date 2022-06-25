@@ -5,10 +5,10 @@ export type CreateTaskType = {
     deadlineMs: number;
 };
 
-export type TaskType = {
+export type TaskType = CreateTaskType & {
     id: number;
-    name: string;
-    description: string;
-    xp: number;
-    deadlineMs: number;
+};
+
+export type TaskWithProofType = TaskType & {
+    proofs: string[];
 };

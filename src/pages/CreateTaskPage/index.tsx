@@ -59,7 +59,6 @@ const CreateTaskPage = () => {
                 <div className="createTask__content">
                     <TextField
                         className="createTask__content__field"
-                        color="info"
                         id="name"
                         label="Name"
                         variant="outlined"

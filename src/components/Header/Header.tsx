@@ -61,7 +61,7 @@ const Header = ({ onConnect, onDisconnect }: NavbarProps) => {
             <div className="header__section">
                 <div className="header__links">
                     {LINKS.map(({ href, text }) => (
-                        <GradientHref href={href} disabled={location.pathname === href}>
+                        <GradientHref key={text} href={href} disabled={location.pathname === href}>
                             {text}
                         </GradientHref>
                     ))}
