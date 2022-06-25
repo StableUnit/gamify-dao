@@ -15,6 +15,7 @@ const AppContainer = () => {
     return (
         <StateContext.Provider value={state}>
             <DispatchContext.Provider value={dispatch}>
+                {/* @ts-ignore */}
                 <ErrorBoundary>
                     <ReactNotifications />
                     <App />

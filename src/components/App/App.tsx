@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 import Web3Modal, { IProviderOptions } from "web3modal";
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 
 import Header from "../Header/Header";
 import { idToNetwork, NETWORK, networkInfo, networkToId } from "../../utils/network";
@@ -10,24 +11,53 @@ import Actions from "../../reducer/actions";
 
 import "./App.scss";
 
+const RPC = {
+    [networkToId.eth]: networkInfo[NETWORK.eth].rpcUrls[0],
+    [networkToId.rinkeby]: networkInfo[NETWORK.rinkeby].rpcUrls[0],
+    [networkToId.bsc]: networkInfo[NETWORK.bsc].rpcUrls[0],
+    [networkToId.polygon]: networkInfo[NETWORK.polygon].rpcUrls[0],
+    [networkToId.fantom]: networkInfo[NETWORK.fantom].rpcUrls[0],
+    [networkToId.avalanche]: networkInfo[NETWORK.avalanche].rpcUrls[0],
+    [networkToId.aurora]: networkInfo[NETWORK.aurora].rpcUrls[0],
+};
+
 const providerOptions: IProviderOptions = {
     walletconnect: {
         package: WalletConnectProvider,
         options: {
-            rpc: {
-                [networkToId.eth]: networkInfo[NETWORK.eth].rpcUrls[0],
-                [networkToId.rinkeby]: networkInfo[NETWORK.rinkeby].rpcUrls[0],
-                [networkToId.bsc]: networkInfo[NETWORK.bsc].rpcUrls[0],
-                [networkToId.polygon]: networkInfo[NETWORK.polygon].rpcUrls[0],
-                [networkToId.fantom]: networkInfo[NETWORK.fantom].rpcUrls[0],
-                [networkToId.avalanche]: networkInfo[NETWORK.avalanche].rpcUrls[0],
-                [networkToId.aurora]: networkInfo[NETWORK.aurora].rpcUrls[0],
+            rpc: RPC,
+            qrcode: true,
+            qrcodeModalOptions: {
+                mobileLinks: ["metamask", "trust"],
             },
+        },
+    },
+    binancechainwallet: {
+        package: true,
+    },
+    coinbasewallet: {
+        package: CoinbaseWalletSDK, // Required
+        options: {
+            appName: "StableUnit App",
+            infuraId: "20518e992a3143bd86f2367198e7856a",
+            rpc: RPC,
+            chainId: [networkToId[NETWORK.rinkeby]],
+            darkMode: true,
         },
     },
 };
 
-const web3Modal = new Web3Modal({ cacheProvider: true, providerOptions });
+const web3Modal = new Web3Modal({
+    cacheProvider: true,
+    providerOptions,
+    theme: {
+        background: "#313131",
+        main: "rgb(255, 255, 255)",
+        secondary: "rgb(136, 136, 136)",
+        border: "none",
+        hover: "rgba(32, 32, 29, 0.8)",
+    },
+});
 
 const App = () => {
     const { web3, chain } = useContext(StateContext);
