@@ -4,15 +4,16 @@ import DatePicker from "react-datepicker";
 
 import ButtonGradient from "../../ui-kit/components/ButtonGradient/ButtonGradient";
 import GradientBorder from "../../ui-kit/components/GradientBorder/GradientBorder";
-import { createTask } from "../../utils/api";
+import { createTask, takeTask } from "../../utils/api";
 
 import "./index.scss";
+import { addErrorNotification, addSuccessNotification } from "../../utils/notifications";
 
 const CreateTaskPage = () => {
     const [name, setName] = useState<string | undefined>(undefined);
     const [description, setDescription] = useState<string | undefined>(undefined);
     const [xp, setXP] = useState(0);
-    const [date, setDate] = React.useState(new Date());
+    const [date, setDate] = useState(new Date());
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -37,12 +38,17 @@ const CreateTaskPage = () => {
 
     const handleCreate = async () => {
         if (hasAllData) {
-            await createTask({
-                name,
-                description,
-                xp,
-                date: date.getTime(),
-            });
+            try {
+                await createTask({
+                    name,
+                    description,
+                    xp,
+                    deadlineMs: date.getTime(),
+                });
+                addSuccessNotification("Success", "Task has been created");
+            } catch (e) {
+                addErrorNotification("Error", "Task has not been created");
+            }
         }
     };
 

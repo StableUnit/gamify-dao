@@ -1,15 +1,9 @@
 import axios from "axios";
+import { CreateTaskType, TaskType } from "./types";
 
-const responseWrapper = async (f: Promise<any>, needErrorMessage?: boolean) => {
-    try {
-        const response = await f;
-        return response.data;
-    } catch (e: any) {
-        const errorMessage = e?.response?.data?.message ?? "Error";
-        if (needErrorMessage) {
-            return { responseError: errorMessage };
-        }
-    }
+const responseWrapper = async (f: Promise<any>) => {
+    const response = await f;
+    return response.data;
 };
 
 const credentialConfig = {
@@ -18,12 +12,10 @@ const credentialConfig = {
 
 const ENDPOINT = "https://api.stableunit.org";
 
-type TaskType = {
-    name: string;
-    description: string;
-    xp: number;
-    date: number;
-};
-
-export const createTask = async (task: TaskType) =>
+export const createTask = async (task: CreateTaskType) =>
     responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
+
+export const getTasks: () => Promise<TaskType> = async () => responseWrapper(axios.get(`${ENDPOINT}/getTasks`));
+
+export const takeTask = async (userAddress: string, taskId: number) =>
+    responseWrapper(axios.post(`${ENDPOINT}/takeTask`, { userAddress, taskId }));
