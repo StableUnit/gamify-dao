@@ -20,6 +20,11 @@ const RPC = {
     [networkToId.fantom]: networkInfo[NETWORK.fantom].rpcUrls[0],
     [networkToId.avalanche]: networkInfo[NETWORK.avalanche].rpcUrls[0],
     [networkToId.aurora]: networkInfo[NETWORK.aurora].rpcUrls[0],
+    [networkToId.optimism]: networkInfo[NETWORK.optimism].rpcUrls[0],
+    [networkToId.harmony]: networkInfo[NETWORK.harmony].rpcUrls[0],
+    [networkToId.boba]: networkInfo[NETWORK.boba].rpcUrls[0],
+    [networkToId.skale]: networkInfo[NETWORK.skale].rpcUrls[0],
+    [networkToId.cronos]: networkInfo[NETWORK.cronos].rpcUrls[0],
 };
 
 const providerOptions: IProviderOptions = {

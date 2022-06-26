@@ -1,3 +1,5 @@
+@import "../../ui-kit/styles/vars";
+
 .header {
     position: fixed;
     width: 100%;
@@ -82,5 +84,59 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    &__network-form {
+        width: 220px;
+        margin: 0;
+
+        .MuiSelect-select {
+            border-radius: 80px;
+            display: flex;
+            align-items: center;
+            background-color: $gray1 !important;
+            padding: 4px !important;
+
+            img {
+                margin-right: 8px;
+            }
+        }
+
+        & > div {
+            color: $black;
+        }
+
+        input {
+            color: $black;
+            background-color: $gray1 !important;
+            border-radius: 80px;
+            outline: none;
+        }
+
+        fieldset {
+            display: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 340px;
+        }
+    }
+
+    &__paper {
+        background-color: #313131 !important;
+        border-radius: 8px !important;
+        color: #FFFFFF !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
+    }
+
+    &__list {
+        li {
+            padding-bottom: 12px;
+        }
+        img {
+            padding-right: 8px;
+        }
     }
 }

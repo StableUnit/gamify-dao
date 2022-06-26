@@ -1,15 +1,29 @@
 import React from "react";
 import DefaultImage from "../../images/default.png";
-import EthImage from "../../images/network/Eth.svg";
-import RinkebyImage from "../../images/network/Rinkeby.svg";
-import PolygonImage from "../../images/network/Polygon.svg";
-import FantomImage from "../../images/network/Fantom.svg";
-import BscImage from "../../images/network/BSC.svg";
-import AvalancheImage from "../../images/network/Avalanche.svg";
-import AuroraImage from "../../images/network/Aurora.png";
-import HarmonyImage from "../../images/network/Harmony.svg";
+import EthImage from "../../images/eth.png";
+import PolygonImage from "../../images/polygon.png";
+import FantomImage from "../../images/fantom.png";
+import BscImage from "../../images/bsc.png";
+import AvalancheImage from "../../images/avalanche.png";
+import AuroraImage from "../../images/aurora.png";
+import HarmonyImage from "../../images/harmony.png";
+import OptimismImage from "../../images/optimism.png";
+import BobaImage from "../../images/boba.png";
+import SkaleImage from "../../images/skale.png";
+import CronosImage from "../../images/cronos.png";
 
-export type NetworkType = "eth" | "rinkeby" | "polygon" | "bsc" | "fantom" | "avalanche" | string;
+export type NetworkType =
+    | "eth"
+    | "rinkeby"
+    | "polygon"
+    | "bsc"
+    | "fantom"
+    | "avalanche"
+    | "optimism"
+    | "boba"
+    | "skale"
+    | "cronos"
+    | string;
 
 interface NetworkImageProps {
     network?: NetworkType;
@@ -18,11 +32,11 @@ interface NetworkImageProps {
 }
 
 const getNetworkImage = (network?: NetworkType) => {
-    switch (network?.toLowerCase()) {
+    switch (network) {
         case "eth":
             return EthImage;
         case "rinkeby":
-            return RinkebyImage;
+            return EthImage;
         case "polygon":
             return PolygonImage;
         case "fantom":
@@ -35,6 +49,14 @@ const getNetworkImage = (network?: NetworkType) => {
             return AuroraImage;
         case "harmony":
             return HarmonyImage;
+        case "optimism":
+            return OptimismImage;
+        case "boba":
+            return BobaImage;
+        case "skale":
+            return SkaleImage;
+        case "cronos":
+            return CronosImage;
         default:
             return DefaultImage;
     }
