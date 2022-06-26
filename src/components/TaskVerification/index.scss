@@ -1,0 +1,61 @@
+@import "../../ui-kit/styles/vars";
+
+.task-verification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 900px;
+  padding: 20px;
+  background: $black;
+
+  &-wrapper {
+    margin-bottom: 32px;
+  }
+
+  &__info {
+    margin-right: 8px;
+    font-size: 18px;
+
+    &__title {
+      font-size: 20px;
+    }
+
+    &__proofs {
+      background: $dark-gray;
+      padding: 8px;
+
+      & > div {
+        padding-bottom: 8px;
+
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      &-wrapper {
+        width: 100%;
+        margin: 0;
+
+        &:before {
+          background: none;
+        }
+      }
+    }
+
+    &__line {
+      padding-bottom: 12px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+
+    & > div:first-child {
+      margin-right: 8px;
+    }
+  }
+}

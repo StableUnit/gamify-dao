@@ -28,7 +28,7 @@ const ButtonGradient = ({
     ...props
 }: ButtonGradientProps) => {
     return (
-        <GradientBorder className={`${className}-container`} borderRadius={80}>
+        <GradientBorder className={className ? `${className}-container` : undefined} borderRadius={80}>
             <div
                 id={id}
                 className={cn("button-gradient", className, { "button-gradient--disabled": disabled })}

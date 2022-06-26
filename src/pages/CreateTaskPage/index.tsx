@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 
 import ButtonGradient from "../../ui-kit/components/ButtonGradient/ButtonGradient";
 import GradientBorder from "../../ui-kit/components/GradientBorder/GradientBorder";
-import { createTask, takeTask } from "../../utils/api";
+import { createTask } from "../../utils/api";
 
 import "./index.scss";
 import { addErrorNotification, addSuccessNotification } from "../../utils/notifications";

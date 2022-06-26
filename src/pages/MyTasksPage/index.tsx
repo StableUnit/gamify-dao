@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import "./index.scss";
-import { completeTask, getUserTasks, takeTask } from "../../utils/api";
+import { completeTask, getUserTasks } from "../../utils/api";
 import { TaskWithProofType } from "../../utils/types";
 import { StateContext } from "../../reducer/constants";
 import { addErrorNotification, addSuccessNotification } from "../../utils/notifications";

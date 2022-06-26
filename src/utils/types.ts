@@ -12,3 +12,7 @@ export type TaskType = CreateTaskType & {
 export type TaskWithProofType = TaskType & {
     proofs: string[];
 };
+
+export type TaskWithVerificationProofType = TaskType & {
+    proofs: Record<string, string>;
+};

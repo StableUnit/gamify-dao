@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateTaskType, TaskType, TaskWithProofType } from "./types";
+import { CreateTaskType, TaskType, TaskWithProofType, TaskWithVerificationProofType } from "./types";
 
 const responseWrapper = async (f: Promise<any>) => {
     const response = await f;
@@ -23,5 +23,12 @@ export const getUserTasks: (userAddress: string) => Promise<TaskWithProofType> =
 export const takeTask = async (userAddress: string, taskId: number) =>
     responseWrapper(axios.post(`${ENDPOINT}/takeTask`, { userAddress, taskId }));
 
+export const confirmTask = async (userAddress: string, taskId: number, isConfirmed: boolean) =>
+    responseWrapper(axios.post(`${ENDPOINT}/confirmTask`, { userAddress, taskId, isConfirmed }));
+
 export const completeTask = async (userAddress: string, taskId: number, proofs: Record<string, string>) =>
     responseWrapper(axios.post(`${ENDPOINT}/completeTask`, { userAddress, taskId, proofs }));
+
+export const getTasksToVerificate: (userAddress: string) => Promise<TaskWithVerificationProofType> = async (
+    userAddress
+) => responseWrapper(axios.post(`${ENDPOINT}/getTasksToVerificate`, { userAddress }));
