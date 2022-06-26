@@ -29,3 +29,5 @@ export const addSuccessNotification = (title: string, message?: string, isFast?:
         },
     });
 };
+
+export const sleep = (ms = 10000) => new Promise((r) => setTimeout(r, ms));

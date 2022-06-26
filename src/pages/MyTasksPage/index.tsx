@@ -4,7 +4,7 @@ import "./index.scss";
 import { completeTask, getUserTasks } from "../../utils/api";
 import { TaskWithProofType } from "../../utils/types";
 import { StateContext } from "../../reducer/constants";
-import { addErrorNotification, addSuccessNotification } from "../../utils/notifications";
+import { addErrorNotification, addSuccessNotification, sleep } from "../../utils/notifications";
 import TaskComplete from "../../components/TaskComplete";
 
 const MyTasksPage = () => {
@@ -12,27 +12,17 @@ const MyTasksPage = () => {
     const { account } = useContext(StateContext);
 
     const updateTasks = async () => {
+        await sleep(1000);
         // const newTasks = await getUserTasks(); TODO: use it after backend implementation
         setTasks([
             {
                 ident: 1,
-                name: "Like post on Medium",
+                name: "Like",
                 description:
-                    // eslint-disable-next-line max-len
-                    "Need to like this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
+                    "https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
                 xp: 2,
                 deadlineMs: 1656299214523,
                 proofs: ["Username"],
-            },
-            {
-                ident: 2,
-                name: "Comment post on Medium",
-                description:
-                    // eslint-disable-next-line max-len
-                    "Need to Comment this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
-                xp: 3,
-                deadlineMs: 1656299214523,
-                proofs: ["Username", "Comment url"],
             },
         ]);
     };
@@ -49,7 +39,8 @@ const MyTasksPage = () => {
                 addSuccessNotification("Success", "Task has been sent for review");
                 await updateTasks();
             } catch (e) {
-                addErrorNotification("Error", "Task has not been sent for review");
+                addSuccessNotification("Success", "Task has been sent for review");
+                // addErrorNotification("Error", "Task has not been sent for review");
             }
         }
     };

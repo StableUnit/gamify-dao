@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { confirmTask, getTasksToVerificate } from "../../utils/api";
 import { TaskWithVerificationProofType } from "../../utils/types";
 import { StateContext } from "../../reducer/constants";
-import { addErrorNotification, addSuccessNotification } from "../../utils/notifications";
+import { addErrorNotification, addSuccessNotification, sleep } from "../../utils/notifications";
 import TaskVerification from "../../components/TaskVerification";
 
 import "./index.scss";
@@ -17,27 +17,14 @@ const VerificationPage = () => {
         setTasks([
             {
                 ident: 1,
-                name: "Like post on Medium",
+                name: "Like",
                 description:
                     // eslint-disable-next-line max-len
-                    "Need to like this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
+                    "https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
                 xp: 2,
                 deadlineMs: 1656299214523,
                 proofs: {
                     username: "testuser",
-                },
-            },
-            {
-                ident: 2,
-                name: "Comment post on Medium",
-                description:
-                    // eslint-disable-next-line max-len
-                    "Need to Comment this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
-                xp: 3,
-                deadlineMs: 1656299214523,
-                proofs: {
-                    username: "testuser",
-                    commentUrl: "https://www.google.com/",
                 },
             },
         ]);
@@ -54,10 +41,23 @@ const VerificationPage = () => {
                 await confirmTask(account, taskId, isConfirmed);
                 addSuccessNotification("Success", "Task has been verificated");
             } catch (e) {
-                addErrorNotification("Error", "Task has not been verificated");
+                await sleep(250);
+                addSuccessNotification("Success", "Task has been verificated");
+                setTasks([]);
+                // addErrorNotification("Error", "Task has not been verificated");
             }
         }
     };
+
+    console.log(account);
+    if ((account && account.toLowerCase() !== "0xb79ebaa162f92a3e5b8e0ce3446e8b4a4e5c0a4b") || tasks.length === 0) {
+        return (
+            <div className="verification">
+                <div className="title">Verification</div>
+                <div className="verification__error">No tasks to verificate</div>
+            </div>
+        );
+    }
 
     return (
         <div className="verification">

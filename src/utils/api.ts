@@ -6,7 +6,7 @@ const responseWrapper = async (f: Promise<any>) => {
     return response.data;
 };
 
-const ENDPOINT = "https://ea49-91-193-177-116.eu.ngrok.io";
+const ENDPOINT = "https://4b13-2-92-199-217.eu.ngrok.io";
 
 export const createTask = async (task: CreateTaskType) => responseWrapper(axios.post(`${ENDPOINT}/createTask`, task));
 
