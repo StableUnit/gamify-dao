@@ -6,7 +6,7 @@ const responseWrapper = async (f: Promise<any>) => {
     return response.data;
 };
 
-const ENDPOINT = "https://6b3f269fa4c651.lhrtunnel.link";
+const ENDPOINT = "https://e03b15e3815fa2.lhrtunnel.link";
 
 export const createTask = async (task: CreateTaskType) => responseWrapper(axios.post(`${ENDPOINT}/createTask`, task));
 
@@ -25,6 +25,6 @@ export const confirmTask = async (userAddress: string, taskId: number, isConfirm
 export const completeTask = async (userAddress: string, taskId: number, proofs: Record<string, string>) =>
     responseWrapper(axios.post(`${ENDPOINT}/completeTask`, { userAddress, taskId, proofs }));
 
-export const getTasksToVerificate: (userAddress: string) => Promise<TaskWithVerificationProofType> = async (
+export const getTasksToVerificate: (userAddress: string) => Promise<TaskWithVerificationProofType[]> = async (
     userAddress
 ) => responseWrapper(axios.post(`${ENDPOINT}/getTasksToVerificate`, { userAddress }));
