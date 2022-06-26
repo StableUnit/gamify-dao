@@ -16,7 +16,7 @@ const VerificationPage = () => {
         // const newTasks = await getTasksToVerificate(account); TODO: use it after backend implementation
         setTasks([
             {
-                id: 1,
+                ident: 1,
                 name: "Like post on Medium",
                 description:
                     // eslint-disable-next-line max-len
@@ -28,7 +28,7 @@ const VerificationPage = () => {
                 },
             },
             {
-                id: 2,
+                ident: 2,
                 name: "Comment post on Medium",
                 description:
                     // eslint-disable-next-line max-len
@@ -66,10 +66,10 @@ const VerificationPage = () => {
                 <div className="verification__content">
                     {tasks.map((task) => (
                         <TaskVerification
-                            key={task.id}
+                            key={task.ident}
                             task={task}
-                            onApprove={handleConfirmTask(task.id, true)}
-                            onReject={handleConfirmTask(task.id, false)}
+                            onApprove={handleConfirmTask(task.ident, true)}
+                            onReject={handleConfirmTask(task.ident, false)}
                         />
                     ))}
                 </div>

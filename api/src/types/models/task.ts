@@ -3,6 +3,10 @@ import { ITask } from "../task";
 
 const taskSchema: Schema = new Schema(
     {
+        ident: {
+            type: Number,
+            required: false,
+        },
         name: {
             type: String,
             required: false,

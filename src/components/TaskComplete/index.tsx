@@ -37,7 +37,7 @@ const TaskComplete = ({ task, onClick }: Props) => {
                 <div className="taskComplete__info">
                     <div className="taskComplete__info__title">
                         <GradientHref>
-                            Task №{task.id}: {task.name}
+                            Task №{task.ident}: {task.name}
                         </GradientHref>
                     </div>
                     <div>
@@ -54,8 +54,8 @@ const TaskComplete = ({ task, onClick }: Props) => {
                         {task.proofs.map((proof, i) => (
                             <TextField
                                 className="taskComplete__info__proof"
-                                id={`task-${task.id}-proof-${i}`}
-                                key={`task-${task.id}-proof-${proof}`}
+                                id={`task-${task.ident}-proof-${i}`}
+                                key={`task-${task.ident}-proof-${proof}`}
                                 label={proof}
                                 variant="outlined"
                                 value={proofData[proof]}

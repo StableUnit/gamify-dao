@@ -22,7 +22,7 @@ const Task = ({ task, onClick }: Props) => {
                 <div className="task__info">
                     <div className="task__info__title">
                         <GradientHref>
-                            Task №{task.id}: {task.name}
+                            Task №{task.ident}: {task.name}
                         </GradientHref>
                     </div>
                     <div>

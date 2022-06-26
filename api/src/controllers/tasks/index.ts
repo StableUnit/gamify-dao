@@ -10,6 +10,7 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body as Pick<
             ITask,
+            | "ident"
             | "name"
             | "description"
             | "proofFormat"
@@ -22,6 +23,7 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
         >;
 
         const task: ITask = new Task({
+            ident: (await Task.count()) + 1,
             name: body.name,
             description: body.description,
             proofFormat: body.proofFormat,
@@ -100,6 +102,23 @@ const confirmTask = async (req: Request, res: Response): Promise<void> => {
 };
 
 const takeTask = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proof" | "status">;
+
+        const job: IJob = new Job({
+            userAddress: body.userAddress,
+            taskId: body.taskId,
+            proof: body.proof,
+            status: body.status,
+        });
+
+        const newJob: IJob = await job.save();
+
+        res.status(201).json({ message: "Task taken", task: newJob });
+    } catch (error) {
+        res.status(503).send(error);
+    }
+
     // try {
     //   const body = req.body as Pick<ITask, "description" | "proof_format"
     //   | "reward" | "repeats" | "status" | "onCompleteCall" | "minLevel">
@@ -141,24 +160,6 @@ const сompleteTask = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const addTodo = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const body = req.body as Pick<ITodo, "name" | "description" | "status">;
-
-        const todo: ITodo = new Todo({
-            name: "test1", // body.name,
-            description: "desct1", // body.description,
-            status: 1, // body.status,
-        });
-
-        const newTodo: ITodo = await todo.save();
-        const allTodos: ITodo[] = await Todo.find();
-
-        res.status(201).json({ message: "Todo added", todo: newTodo, todos: allTodos });
-    } catch (error) {
-        throw error;
-    }
-};
 
 // const updateTodo = async (req: Request, res: Response): Promise<void> => {
 //     try {
@@ -196,7 +197,7 @@ const deleteTodo = async (req: Request, res: Response): Promise<void> => {
 };
 
 const ping = async (req: Request, res: Response): Promise<void> => {
-        res.status(200).json({
+    res.status(200).json({
         message: "Api Online",
     });
 };
