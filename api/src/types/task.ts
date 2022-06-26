@@ -1,13 +1,13 @@
-import { Document } from "mongoose"
+import { Document } from "mongoose";
 
 export interface ITask extends Document {
-  description: string, 
-  proof_format: string, 
-  reward: number, 
-  repeats: number, 
-  status: string, 
-  onCompleteCall: string, 
-  minLevel: number
+    name: string;
+    description: string;
+    proofFormat: string;
+    reward: number;
+    repeats: number;
+    deadlineMs: number;
+    status: string;
+    onCompleteCall: string;
+    minLevel: string;
 }
-
-
