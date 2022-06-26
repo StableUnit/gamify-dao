@@ -4,7 +4,7 @@ export interface ITask extends Document {
     name: string;
     description: string;
     proofFormat: string;
-    reward: number;
+    xp: number;
     repeats: number;
     deadlineMs: number;
     status: string;

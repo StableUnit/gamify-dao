@@ -6,25 +6,6 @@ import Todo from "../../types/models/todo";
 import Task from "../../types/models/task";
 import Job from "../../types/models/job";
 
-/*
-
-createTask(name, description, xp, deadlineMs)
-Returns 200 or 503
-getTaskToVerificate(userAddress)
-Returns { taskId, name, description, xp, proofs: string[] }
-confirmTask(taskId, inConfirmed)
-Returns 200 or 503
-getTasks()
-Returns {id, name, description, xp, deadlineMs}[]
-takeTask(userAddress, taskId)
-Returns 200 or 503
-getUserTasks(userAddress)
-Returns { id, name, description, xp, deadlineMs, proofs: string[] }[]
-сompleteTask(userAddress, taskId, proofs: Record<string, string>)
-
-createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask
-*/
-
 const createTask = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body as Pick<
@@ -32,7 +13,7 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
             | "name"
             | "description"
             | "proofFormat"
-            | "reward"
+            | "xp"
             | "repeats"
             | "deadlineMs"
             | "status"
@@ -44,7 +25,7 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
             name: body.name,
             description: body.description,
             proofFormat: body.proofFormat,
-            reward: body.reward,
+            xp: body.xp,
             repeats: body.repeats,
             status: body.status,
             onCompleteCall: body.onCompleteCall,

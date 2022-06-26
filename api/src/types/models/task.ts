@@ -5,39 +5,39 @@ const taskSchema: Schema = new Schema(
     {
         name: {
             type: String,
-            required: true,
+            required: false,
         },
         description: {
             type: String,
-            required: true,
+            required: false,
         },
         proofFormat: {
             type: String,
-            required: true,
+            required: false,
         },
-        reward: {
+        xp: {
             type: Number,
-            required: true,
+            required: false,
         },
         repeats: {
             type: Number,
-            required: true,
+            required: false,
         },
         deadlineMs: {
             type: Number,
-            required: true,
+            required: false,
         },
         status: {
             type: String,
-            required: true,
+            required: false,
         },
         onCompleteCall: {
             type: String,
-            required: true,
+            required: false,
         },
         minLevel: {
             type: Number,
-            required: true,
+            required: false,
         },
     },
     { timestamps: true }
