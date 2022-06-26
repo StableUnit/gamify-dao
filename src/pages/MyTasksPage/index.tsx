@@ -15,7 +15,7 @@ const MyTasksPage = () => {
         // const newTasks = await getUserTasks(); TODO: use it after backend implementation
         setTasks([
             {
-                id: 1,
+                ident: 1,
                 name: "Like post on Medium",
                 description:
                     // eslint-disable-next-line max-len
@@ -25,7 +25,7 @@ const MyTasksPage = () => {
                 proofs: ["Username"],
             },
             {
-                id: 2,
+                ident: 2,
                 name: "Comment post on Medium",
                 description:
                     // eslint-disable-next-line max-len
@@ -60,7 +60,7 @@ const MyTasksPage = () => {
             {account ? (
                 <div className="myTasks__content">
                     {tasks.map((task) => (
-                        <TaskComplete key={task.id} task={task} onClick={handleCompleteTask(task.id)} />
+                        <TaskComplete key={task.ident} task={task} onClick={handleCompleteTask(task.ident)} />
                     ))}
                 </div>
             ) : (

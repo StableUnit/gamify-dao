@@ -36,7 +36,7 @@ const MyTasksPage = () => {
             <div className="title">All tasks</div>
             <div className="allTasks__content">
                 {tasks.map((task) => (
-                    <Task key={task.id} task={task} onClick={handleCompleteTask(task.id)} />
+                    <Task key={task.ident} task={task} onClick={handleCompleteTask(task.ident)} />
                 ))}
             </div>
         </div>
