@@ -81,10 +81,10 @@ const getUserTasks = async (req: Request, res: Response): Promise<void> => {
     // }
 };
 
-const getTaskToVerificate = async (req: Request, res: Response): Promise<void> => {
+const getTasksToVerificate = async (req: Request, res: Response): Promise<void> => {
     try {
-        const tasks: ITask[] = await Task.find();
-        res.status(200).json({ tasks });
+        const jobs: IJob[] = await Job.find({ status: "pending" });
+        res.status(200).json({ jobs });
     } catch (error) {
         res.status(503).send(error);
     }
@@ -92,8 +92,14 @@ const getTaskToVerificate = async (req: Request, res: Response): Promise<void> =
 
 const confirmTask = async (req: Request, res: Response): Promise<void> => {
     try {
-        const tasks: ITask[] = await Task.find();
-        res.status(200).json({ tasks });
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proofs" | "status" | "isConfirmed">;
+        console.log(body.isConfirmed);
+        const updatedJob: IJob | null = await Job.updateOne(
+            { taskId: body.taskId, userAddress: body.userAddress },
+            { $set: { proofs: body.proofs, status: body.isConfirmed ? "accepted" : "declined" } }
+        );
+
+        res.status(200).json(updatedJob);
     } catch (error) {
         res.status(503).send(error);
     }
@@ -107,10 +113,8 @@ const takeTask = async (req: Request, res: Response): Promise<void> => {
             userAddress: body.userAddress,
             taskId: body.taskId,
             proof: body.proofs,
-            status: body.status,
+            status: "opened",
         });
-
-        const newJob: IJob = await job.save();
 
         res.status(200).json({ message: "Task taken" });
     } catch (error) {
@@ -152,10 +156,13 @@ const takeTask = async (req: Request, res: Response): Promise<void> => {
 const сompleteTask = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proofs" | "status">;
-        console.log(body);
-        const updateTodo: IJob | null = await Job.updateOne({ taskId: body.taskId }, { $set: { proofs: body.proofs } });
 
-        res.status(200).json(updateTodo);
+        const updatedJob: IJob | null = await Job.updateOne(
+            { taskId: body.taskId, userAddress: body.userAddress },
+            { $set: { proofs: body.proofs, status: "pending" } }
+        );
+
+        res.status(200).json(updatedJob);
     } catch (error) {
         res.status(503).send(error);
     }
@@ -202,4 +209,4 @@ const ping = async (req: Request, res: Response): Promise<void> => {
     });
 };
 
-export { createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask, ping };
+export { createTask, getTasksToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask, ping };

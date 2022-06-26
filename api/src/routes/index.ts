@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
     createTask,
-    getTaskToVerificate,
+    getTasksToVerificate,
     confirmTask,
     getTasks,
     takeTask,
@@ -16,7 +16,7 @@ router.get("/ping", ping);
 
 router.post("/createTask", createTask);
 
-router.get("/getTaskToVerificate", getTaskToVerificate);
+router.post("/getTasksToVerificate", getTasksToVerificate);
 
 router.post("/confirmTask", confirmTask);
 

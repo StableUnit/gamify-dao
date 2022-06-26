@@ -19,6 +19,10 @@ const jobSchema: Schema = new Schema(
             type: String,
             required: false,
         },
+        isConfirmed: {
+            type: Boolean,
+            required: false,
+        },
     },
     { timestamps: true }
 );

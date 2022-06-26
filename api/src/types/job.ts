@@ -5,4 +5,5 @@ export interface IJob extends Document {
     taskId: number;
     proofs: [];
     status: string;
+    isConfirmed: boolean;
 }
