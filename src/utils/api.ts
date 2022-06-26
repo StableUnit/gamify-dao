@@ -6,14 +6,9 @@ const responseWrapper = async (f: Promise<any>) => {
     return response.data;
 };
 
-const credentialConfig = {
-    withCredentials: true,
-};
-
 const ENDPOINT = "https://ea49-91-193-177-116.eu.ngrok.io";
 
-export const createTask = async (task: CreateTaskType) =>
-    responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
+export const createTask = async (task: CreateTaskType) => responseWrapper(axios.post(`${ENDPOINT}/createTask`, task));
 
 export const getTasks: () => Promise<TaskType[]> = async () =>
     (await responseWrapper(axios.get(`${ENDPOINT}/getTasks`))).tasks;
