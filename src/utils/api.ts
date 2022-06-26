@@ -10,7 +10,7 @@ const credentialConfig = {
     withCredentials: true,
 };
 
-const ENDPOINT = "https://localhost/4000";
+const ENDPOINT = "https://gamify-dao.netlify.app";
 
 export const createTask = async (task: CreateTaskType) =>
     responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
