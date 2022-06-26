@@ -10,7 +10,7 @@ const credentialConfig = {
     withCredentials: true,
 };
 
-const ENDPOINT = "https://api.stableunit.org";
+const ENDPOINT = "https://localhost/4000";
 
 export const createTask = async (task: CreateTaskType) =>
     responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
