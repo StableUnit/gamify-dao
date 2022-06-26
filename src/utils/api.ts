@@ -6,7 +6,7 @@ const responseWrapper = async (f: Promise<any>) => {
     return response.data;
 };
 
-const ENDPOINT = "https://3a87c9864c1f99.lhrtunnel.link";
+const ENDPOINT = "https://6b3f269fa4c651.lhrtunnel.link";
 
 export const createTask = async (task: CreateTaskType) => responseWrapper(axios.post(`${ENDPOINT}/createTask`, task));
 
