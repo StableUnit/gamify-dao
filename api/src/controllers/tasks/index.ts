@@ -55,6 +55,8 @@ const getTasks = async (req: Request, res: Response): Promise<void> => {
 
 const getUserTasks = async (req: Request, res: Response): Promise<void> => {
     try {
+        const userTasks: IJob[] | null = await Job.find({ userId: req.params.userAddress });
+
         const tasks: ITask[] = await Task.find();
         res.status(200).json({ tasks });
     } catch (error) {
@@ -97,16 +99,16 @@ const confirmTask = async (req: Request, res: Response): Promise<void> => {
 
 const takeTask = async (req: Request, res: Response): Promise<void> => {
     try {
-        // const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proof" | "status">;
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proof" | "status">;
 
-        // const job: IJob = new Job({
-        //     userAddress: body.userAddress,
-        //     taskId: body.taskId,
-        //     proof: body.proof,
-        //     status: body.status,
-        // });
+        const job: IJob = new Job({
+            userAddress: body.userAddress,
+            taskId: body.taskId,
+            proof: body.proof,
+            status: body.status,
+        });
 
-        // const newJob: IJob = await job.save();
+        const newJob: IJob = await job.save();
 
         res.status(200).json({ message: "Task taken" });
     } catch (error) {
