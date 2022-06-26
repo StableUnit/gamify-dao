@@ -10,12 +10,13 @@ const credentialConfig = {
     withCredentials: true,
 };
 
-const ENDPOINT = "https://gamify-dao.netlify.app";
+const ENDPOINT = "https://ea49-91-193-177-116.eu.ngrok.io";
 
 export const createTask = async (task: CreateTaskType) =>
     responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
 
-export const getTasks: () => Promise<TaskType> = async () => responseWrapper(axios.get(`${ENDPOINT}/getTasks`));
+export const getTasks: () => Promise<TaskType[]> = async () =>
+    (await responseWrapper(axios.get(`${ENDPOINT}/getTasks`))).tasks;
 
 export const getUserTasks: (userAddress: string) => Promise<TaskWithProofType> = async (userAddress) =>
     responseWrapper(axios.get(`${ENDPOINT}/getUserTasks?userAddress=${userAddress}`));
