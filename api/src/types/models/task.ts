@@ -31,6 +31,10 @@ const taskSchema: Schema = new Schema(
             type: Number,
             required: false,
         },
+        proofs: {
+            type: Array,
+            required: false,
+        },
         status: {
             type: String,
             required: false,

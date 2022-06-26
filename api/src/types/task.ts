@@ -8,6 +8,7 @@ export interface ITask extends Document {
     xp: number;
     repeats: number;
     deadlineMs: number;
+    proofs: string[];
     status: string;
     onCompleteCall: string;
     minLevel: string;

@@ -8,11 +8,11 @@ const jobSchema: Schema = new Schema(
             required: true,
         },
         taskId: {
-            type: String,
+            type: Number,
             required: true,
         },
-        proof: {
-            type: Number,
+        proofs: {
+            type: Array,
             required: false,
         },
         status: {

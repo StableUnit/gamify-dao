@@ -26,6 +26,6 @@ router.post("/takeTask", takeTask);
 
 router.get("/getUserTasks", getUserTasks);
 
-router.post("/сompleteTask", сompleteTask);
+router.post("/completeTask", сompleteTask);
 
 export default router;

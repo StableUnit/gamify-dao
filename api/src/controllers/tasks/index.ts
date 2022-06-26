@@ -17,6 +17,7 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
             | "xp"
             | "repeats"
             | "deadlineMs"
+            | "proofs"
             | "status"
             | "onCompleteCall"
             | "minLevel"
@@ -55,9 +56,10 @@ const getTasks = async (req: Request, res: Response): Promise<void> => {
 
 const getUserTasks = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userTasks: IJob[] | null = await Job.find({ userId: req.params.userAddress });
+        const jobs: IJob[] | null = await Job.find({ userId: req.params.userAddress }, { taskId: 1 });
+        const taskIds = jobs.map((job) => job.taskId);
 
-        const tasks: ITask[] = await Task.find();
+        const tasks: ITask[] = await Task.find({ ident: { $in: taskIds } });
         res.status(200).json({ tasks });
     } catch (error) {
         res.status(503).send(error);
@@ -99,12 +101,12 @@ const confirmTask = async (req: Request, res: Response): Promise<void> => {
 
 const takeTask = async (req: Request, res: Response): Promise<void> => {
     try {
-        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proof" | "status">;
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proofs" | "status">;
 
         const job: IJob = new Job({
             userAddress: body.userAddress,
             taskId: body.taskId,
-            proof: body.proof,
+            proof: body.proofs,
             status: body.status,
         });
 
@@ -149,8 +151,11 @@ const takeTask = async (req: Request, res: Response): Promise<void> => {
 
 const сompleteTask = async (req: Request, res: Response): Promise<void> => {
     try {
-        const tasks: ITask[] = await Task.find();
-        res.status(200).json({ tasks });
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proofs" | "status">;
+        console.log(body);
+        const updateTodo: IJob | null = await Job.updateOne({ taskId: body.taskId }, { $set: { proofs: body.proofs } });
+
+        res.status(200).json(updateTodo);
     } catch (error) {
         res.status(503).send(error);
     }
