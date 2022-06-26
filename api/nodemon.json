@@ -1,0 +1,8 @@
+{
+    "env": {
+        "MONGO_USER": "root",
+        "MONGO_PASSWORD": "vzFcFjJpFQ0adwDk",
+        "MONGO_DB": "gamify-dao",
+        "INFURA_KEY": "3bf8b8941e324d78ad316891b949019b"
+    }
+}
