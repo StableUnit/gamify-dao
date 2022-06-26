@@ -195,4 +195,10 @@ const deleteTodo = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask };
+const ping = async (req: Request, res: Response): Promise<void> => {
+        res.status(200).json({
+        message: "Api Online",
+    });
+};
+
+export { createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask, ping };

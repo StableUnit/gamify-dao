@@ -7,9 +7,12 @@ import {
     takeTask,
     getUserTasks,
     сompleteTask,
+    ping,
 } from "../controllers/tasks";
 
 const router: Router = Router();
+
+router.get("/ping", ping);
 
 router.post("/createTask", createTask);
 
