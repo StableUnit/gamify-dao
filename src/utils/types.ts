@@ -6,7 +6,7 @@ export type CreateTaskType = {
 };
 
 export type TaskType = CreateTaskType & {
-    id: number;
+    ident: number;
 };
 
 export type TaskWithProofType = TaskType & {

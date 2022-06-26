@@ -1,21 +1,31 @@
-import { Router } from "express"
-import { createTask, getTaskToVerificate, confirmTask, getTasks, 
-    takeTask, getUserTasks, сompleteTask } from "../controllers/tasks"
+import { Router } from "express";
+import {
+    createTask,
+    getTaskToVerificate,
+    confirmTask,
+    getTasks,
+    takeTask,
+    getUserTasks,
+    сompleteTask,
+    ping,
+} from "../controllers/tasks";
 
-const router: Router = Router()
+const router: Router = Router();
 
-router.get("/createTask", createTask)
+router.get("/ping", ping);
 
-router.get("/getTaskToVerificate", getTaskToVerificate)
+router.post("/createTask", createTask);
 
-router.get("/confirmTask", confirmTask)
+router.get("/getTaskToVerificate", getTaskToVerificate);
 
-router.get("/getTasks", getTasks)
+router.post("/confirmTask", confirmTask);
 
-router.get("/takeTask", takeTask)
+router.get("/getTasks", getTasks);
 
-router.get("/getUserTasks", getUserTasks)
+router.post("/takeTask", takeTask);
 
-router.get("/сompleteTask", сompleteTask)
+router.get("/getUserTasks", getUserTasks);
+
+router.post("/сompleteTask", сompleteTask);
 
 export default router;

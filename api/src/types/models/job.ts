@@ -1,26 +1,26 @@
-import { IJob } from "../job"
-import { model, Schema } from "mongoose"
+import { model, Schema } from "mongoose";
+import { IJob } from "../job";
 
 const jobSchema: Schema = new Schema(
-  {
-    task_id: {
-      type: String,
-      required: true,
+    {
+        userAddress: {
+            type: String,
+            required: true,
+        },
+        taskId: {
+            type: String,
+            required: true,
+        },
+        proof: {
+            type: Number,
+            required: false,
+        },
+        status: {
+            type: String,
+            required: false,
+        },
     },
-    user_id: {
-      type: String,
-      required: true,
-    },
-    proof: {
-      type: Number,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-    },
-  },
-  { timestamps: true }
-)
+    { timestamps: true }
+);
 
-export default model<IJob>("job", jobSchema)
+export default model<IJob>("job", jobSchema);

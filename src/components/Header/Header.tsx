@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
+import Web3 from "web3";
 import { getShortAddress } from "../../utils/wallet";
 
 import "./Header.scss";
 import { StateContext } from "../../reducer/constants";
 import GradientHref from "../../ui-kit/components/GradientHref/GradientHref";
+import { changeNetworkAtMetamask, idToNetwork, networkNames } from "../../utils/network";
+import { NetworkImage } from "../../ui-kit/components/NetworkImage/NetworkImage";
+import { ReactComponent as ArrowDownIcon } from "../../ui-kit/images/arrow-down.svg";
 
 interface NavbarProps {
     onConnect: () => void;
@@ -41,8 +46,13 @@ const LINKS: LinkType[] = [
 ];
 
 const Header = ({ onConnect, onDisconnect }: NavbarProps) => {
-    const { account } = useContext(StateContext);
+    const { account, chain } = useContext(StateContext);
+
     const location = useLocation();
+
+    const handleNetworkChange = useCallback((event) => {
+        changeNetworkAtMetamask(event.target.value);
+    }, []);
 
     return (
         <div className="header">
@@ -66,6 +76,26 @@ const Header = ({ onConnect, onDisconnect }: NavbarProps) => {
                         </GradientHref>
                     ))}
                 </div>
+                <FormControl className="header__network-form">
+                    <Select
+                        value={chain || "placeholder-value"}
+                        onChange={handleNetworkChange}
+                        inputProps={{ "aria-label": "Without label" }}
+                        IconComponent={ArrowDownIcon}
+                        MenuProps={{ classes: { paper: "header__paper", list: "header__list" } }}
+                    >
+                        <MenuItem disabled value="placeholder-value">
+                            <NetworkImage />
+                            Select network
+                        </MenuItem>
+                        {Object.entries(networkNames).map(([id, name]) => (
+                            <MenuItem key={id} value={id}>
+                                <NetworkImage network={id} />
+                                {name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <div className="header__navbar">
                     {account ? (
                         <div className="header__address" onClick={onDisconnect}>

@@ -20,7 +20,7 @@ const TaskVerification = ({ task, onApprove, onReject }: Props) => {
                 <div className="task-verification__info">
                     <div className="task-verification__info__line task-verification__info__title">
                         <GradientHref>
-                            Task №{task.id}: {task.name}
+                            Task №{task.ident}: {task.name}
                         </GradientHref>
                     </div>
                     <div className="task-verification__info__line">

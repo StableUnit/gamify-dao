@@ -6,33 +6,15 @@ import Todo from "../../types/models/todo";
 import Task from "../../types/models/task";
 import Job from "../../types/models/job";
 
-/*
-
-createTask(name, description, xp, deadlineMs)
-Returns 200 or 503
-getTaskToVerificate(userAddress)
-Returns { taskId, name, description, xp, proofs: string[] }
-confirmTask(taskId, inConfirmed)
-Returns 200 or 503
-getTasks()
-Returns {id, name, description, xp, deadlineMs}[]
-takeTask(userAddress, taskId)
-Returns 200 or 503
-getUserTasks(userAddress)
-Returns { id, name, description, xp, deadlineMs, proofs: string[] }[]
-сompleteTask(userAddress, taskId, proofs: Record<string, string>)
-
-createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask
-*/
-
 const createTask = async (req: Request, res: Response): Promise<void> => {
     try {
         const body = req.body as Pick<
             ITask,
+            | "ident"
             | "name"
             | "description"
             | "proofFormat"
-            | "reward"
+            | "xp"
             | "repeats"
             | "deadlineMs"
             | "status"
@@ -41,10 +23,11 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
         >;
 
         const task: ITask = new Task({
+            ident: (await Task.count()) + 1,
             name: body.name,
             description: body.description,
             proofFormat: body.proofFormat,
-            reward: body.reward,
+            xp: body.xp,
             repeats: body.repeats,
             status: body.status,
             onCompleteCall: body.onCompleteCall,
@@ -52,22 +35,10 @@ const createTask = async (req: Request, res: Response): Promise<void> => {
             deadlineMs: body.deadlineMs,
         });
 
-        // const task: ITask = new Task({
-        //         name: "Invite new DAO members",
-        //         description: "Ask your friends to join DAO",
-        //         proofFormat: "Address",
-        //         reward: 10,
-        //         repeats: 3,
-        //         status: "Opened",
-        //         onCompleteCall: "Finished",
-        //         minLevel: 7,
-        //         deadlineMs: 10000,
-        // })
-
         const newTask: ITask = await task.save();
         const allTasks: ITask[] = await Task.find();
 
-        res.status(201).json({ message: "Task added", task: newTask, tasks: allTasks });
+        res.status(200).json({ message: "Task added", task: newTask, tasks: allTasks });
     } catch (error) {
         res.status(503).send(error);
     }
@@ -83,6 +54,14 @@ const getTasks = async (req: Request, res: Response): Promise<void> => {
 };
 
 const getUserTasks = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userTasks: IJob[] | null = await Job.find({ userId: req.params.userAddress });
+
+        const tasks: ITask[] = await Task.find();
+        res.status(200).json({ tasks });
+    } catch (error) {
+        res.status(503).send(error);
+    }
     // try {
     //   const userTasks: IJob[] | null = await Job.find(
     //     { user_id :  req.params.userAddress }
@@ -119,6 +98,23 @@ const confirmTask = async (req: Request, res: Response): Promise<void> => {
 };
 
 const takeTask = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const body = req.body as Pick<IJob, "userAddress" | "taskId" | "proof" | "status">;
+
+        const job: IJob = new Job({
+            userAddress: body.userAddress,
+            taskId: body.taskId,
+            proof: body.proof,
+            status: body.status,
+        });
+
+        const newJob: IJob = await job.save();
+
+        res.status(200).json({ message: "Task taken" });
+    } catch (error) {
+        res.status(503).send(error);
+    }
+
     // try {
     //   const body = req.body as Pick<ITask, "description" | "proof_format"
     //   | "reward" | "repeats" | "status" | "onCompleteCall" | "minLevel">
@@ -160,25 +156,6 @@ const сompleteTask = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const addTodo = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const body = req.body as Pick<ITodo, "name" | "description" | "status">;
-
-        const todo: ITodo = new Todo({
-            name: "test1", // body.name,
-            description: "desct1", // body.description,
-            status: 1, // body.status,
-        });
-
-        const newTodo: ITodo = await todo.save();
-        const allTodos: ITodo[] = await Todo.find();
-
-        res.status(201).json({ message: "Todo added", todo: newTodo, todos: allTodos });
-    } catch (error) {
-        throw error;
-    }
-};
-
 // const updateTodo = async (req: Request, res: Response): Promise<void> => {
 //     try {
 //       const {
@@ -200,18 +177,24 @@ const addTodo = async (req: Request, res: Response): Promise<void> => {
 //     }
 // }
 
-const deleteTodo = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const deletedTodo: ITodo | null = await Todo.findByIdAndRemove(req.params.id);
-        const allTodos: ITodo[] = await Todo.find();
-        res.status(200).json({
-            message: "Todo deleted",
-            todo: deletedTodo,
-            todos: allTodos,
-        });
-    } catch (error) {
-        throw error;
-    }
+// const deleteTodo = async (req: Request, res: Response): Promise<void> => {
+//     try {
+//         const deletedTodo: ITodo | null = await Todo.findByIdAndRemove(req.params.id);
+//         const allTodos: ITodo[] = await Todo.find();
+//         res.status(200).json({
+//             message: "Todo deleted",
+//             todo: deletedTodo,
+//             todos: allTodos,
+//         });
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
+const ping = async (req: Request, res: Response): Promise<void> => {
+    res.status(200).json({
+        message: "Api Online",
+    });
 };
 
-export { createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask };
+export { createTask, getTaskToVerificate, confirmTask, getTasks, takeTask, getUserTasks, сompleteTask, ping };

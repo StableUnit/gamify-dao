@@ -90,7 +90,11 @@ const CreateTaskPage = () => {
                     <div className="createTask__content__date-field">
                         <InputLabel>Deadline</InputLabel>
                         {/* @ts-ignore */}
-                        <DatePicker selected={new Date()} onChange={handleDateChange} value={date} />
+                        <DatePicker
+                            selected={new Date()}
+                            onChange={handleDateChange}
+                            value={date.toLocaleDateString()}
+                        />
                     </div>
                 </div>
                 <ButtonGradient onClick={handleCreate} width={300} disabled={!hasAllData}>

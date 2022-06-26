@@ -12,29 +12,8 @@ const MyTasksPage = () => {
     const { account } = useContext(StateContext);
 
     const updateTasks = async () => {
-        // const newTasks = await getUserTasks(); TODO: use it after backend implementation
-        setTasks([
-            {
-                id: 1,
-                name: "Like post on Medium",
-                description:
-                    // eslint-disable-next-line max-len
-                    "Need to like this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
-                xp: 2,
-                deadlineMs: 1656299214523,
-                proofs: ["Username"],
-            },
-            {
-                id: 2,
-                name: "Comment post on Medium",
-                description:
-                    // eslint-disable-next-line max-len
-                    "Need to Comment this post: https://medium.com/stableunit/engagement-rates-across-stablecoins-what-can-we-learn-ade855eb5b7b",
-                xp: 3,
-                deadlineMs: 1656299214523,
-                proofs: ["Username", "Comment url"],
-            },
-        ]);
+        const newTasks = await getUserTasks(account!);
+        setTasks(newTasks);
     };
     useEffect(() => {
         if (account) {
@@ -60,7 +39,7 @@ const MyTasksPage = () => {
             {account ? (
                 <div className="myTasks__content">
                     {tasks.map((task) => (
-                        <TaskComplete key={task.id} task={task} onClick={handleCompleteTask(task.id)} />
+                        <TaskComplete key={task.ident} task={task} onClick={handleCompleteTask(task.ident)} />
                     ))}
                 </div>
             ) : (

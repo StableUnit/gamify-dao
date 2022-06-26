@@ -6,19 +6,15 @@ const responseWrapper = async (f: Promise<any>) => {
     return response.data;
 };
 
-const credentialConfig = {
-    withCredentials: true,
-};
+const ENDPOINT = "https://3a87c9864c1f99.lhrtunnel.link";
 
-const ENDPOINT = "https://localhost/4000";
+export const createTask = async (task: CreateTaskType) => responseWrapper(axios.post(`${ENDPOINT}/createTask`, task));
 
-export const createTask = async (task: CreateTaskType) =>
-    responseWrapper(axios.post(`${ENDPOINT}/createTask`, task, credentialConfig));
+export const getTasks: () => Promise<TaskType[]> = async () =>
+    (await responseWrapper(axios.get(`${ENDPOINT}/getTasks`))).tasks;
 
-export const getTasks: () => Promise<TaskType> = async () => responseWrapper(axios.get(`${ENDPOINT}/getTasks`));
-
-export const getUserTasks: (userAddress: string) => Promise<TaskWithProofType> = async (userAddress) =>
-    responseWrapper(axios.get(`${ENDPOINT}/getUserTasks?userAddress=${userAddress}`));
+export const getUserTasks: (userAddress: string) => Promise<TaskWithProofType[]> = async (userAddress) =>
+    (await responseWrapper(axios.get(`${ENDPOINT}/getUserTasks?userAddress=${userAddress}`))).tasks;
 
 export const takeTask = async (userAddress: string, taskId: number) =>
     responseWrapper(axios.post(`${ENDPOINT}/takeTask`, { userAddress, taskId }));

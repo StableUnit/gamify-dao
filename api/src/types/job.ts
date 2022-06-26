@@ -1,8 +1,8 @@
-import { Document } from "mongoose"
+import { Document } from "mongoose";
 
 export interface IJob extends Document {
-  task_id: string,
-  user_id: string,
-  proof: string,  
-  status: string, 
+    userAddress: string;
+    taskId: string;
+    proof: string;
+    status: string;
 }
